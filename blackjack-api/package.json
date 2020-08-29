@@ -1,0 +1,22 @@
+{
+  "name": "blackjack-api",
+  "version": "1.0.0",
+  "description": "RESTful blackjackAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "RESTful",
+    "API"
+  ],
+  "author": "clayton conly",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.1"
+  }
+}
