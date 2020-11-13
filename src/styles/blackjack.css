@@ -1,0 +1,151 @@
+
+/* basing color schemes on this link https://icolorpalette.com/color/poker-green */
+body {
+    background-color: #234233;
+}
+
+.appBackground {
+    background-color: #234233;
+    float: center;
+}
+
+label {
+    font-size: 32px;
+    color: whitesmoke;
+    margin-right: 2px;
+}
+
+select {
+    width: 75px;
+    height: 24px;
+    border-radius: 15px;
+}
+
+.start button {
+    width: 180px;
+    height: 75px;
+    margin-left: 20px;
+    font-size: 16px;
+    border-radius: 100px;
+    border-color: black;
+    border-width: 2px;
+}
+
+.table {
+    width: 1500px;
+    height: 700px;
+    background-color: #35654d;
+    /* margin: auto; */
+    margin-left: 7%;
+    border-radius: 60px;
+    border: solid;
+    border-width: 25px;
+    border-color: #654d34;
+}
+
+.dialogue {
+    width: 400px;
+    height: 180px;
+    border: solid;
+    float: right;
+    border-width: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-radius: 25px;
+    background-color: whitesmoke;
+}
+
+.dialogue p {
+    font-size: 24px;
+}
+
+.gamePrint {
+    color: whitesmoke;
+    margin: auto;
+    margin-top: 300px;
+}
+
+.gamePrint p {
+    font-size: 24px;
+}
+
+.bank {
+    width: 400px;
+    height: 180px;
+    border: solid;
+    border-width: 5px;
+    border-radius: 25px;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: 7%;
+    background-color: whitesmoke;
+}
+
+.commands {
+    width: 1200px;
+    height: 180px;
+    float: right;
+    margin-top: -180px;
+    margin-right: 7%;
+}
+
+.commands button {
+    width: 150px;
+    height: 75px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 100px;
+    border-color: black;
+    border-width: 2px;
+}
+
+.commands input {
+    width: 142px;
+    height: 70px;
+    margin-left: 20px;
+    font-size: 20px;
+    border-radius: 100px;
+    border-color: black;
+    border-width: 2px;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.betting {
+    float: right;
+}
+
+.gameOpButtons {
+    float: right;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.dealerHand {
+    width: 1050px;
+    height: 250px;
+    float: left;
+    margin-left: 20px;
+    text-align: right;
+}
+
+.playerHand {
+    width: 1400px;
+    height: 250px;
+    float: left;
+    margin-left: 20px;
+}
+
+.cards {
+    width: 80px;
+    height: 160px;
+    margin: 5px;
+}
+
