@@ -13,6 +13,7 @@ class PlayerHand extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.pHand.length !== this.props.pHand.length){
             this.setState({pHand: this.props.pHand});
+            this.props.updatepTotal();
         }
     }
 
@@ -20,13 +21,11 @@ class PlayerHand extends Component {
         let cards = [];
         const images = require.context('../../public/images/JPEG', true);
 
-        // adding dynamic paths
-        //let dynamicImage = images(`./${someVariable}.png`);
-
         for(let i = 0; i < this.state.pHand.length; i++) {
+            let keyName = "card"+i;
             let photoPath = images(`./${this.state.pHand[i].image}`);
             cards.push(
-                <img className="cards" src={photoPath}></img>
+                <img key={keyName} className="cards" src={photoPath}></img>
             )
         }
         return cards;

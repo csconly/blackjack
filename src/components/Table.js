@@ -8,6 +8,7 @@ import DealerHand from './DealerHand';
 class Table extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             bankRoll: parseInt(this.props.bankRoll),
             deckCount: parseInt(this.props.decks),
@@ -17,11 +18,45 @@ class Table extends Component {
             dealerMessage: "Place your bet!",
             dHand: [],
             pHand: [],
-            playerTurn: false
+            playerTurn: false,
+            dealerTurn: false,
+            pTotal: 0,
+            dTotal: 0
         }
+
         this.beginHand = this.beginHand.bind(this);
+        this.deductBank = this.deductBank.bind(this);
+        this.playerHit = this.playerHit.bind(this);
+        this.playerStand = this.playerStand.bind(this);
+        this.double = this.double.bind(this);
+        this.split = this.split.bind(this);
+        this.countHand = this.countHand.bind(this);
+        this.updatepTotal = this.updatepTotal.bind(this);
+        this.updatedTotal = this.updatedTotal.bind(this);
+
         console.log(this.state.deck);
     }
+
+    playerHit() {
+        this.hit("player");
+    }
+
+    playerStand() {
+        this.dealerActions();
+    }
+
+    double() {
+
+    }
+
+    split() {
+
+    }
+
+    dealerActions() {
+
+    }
+
     // I am using the Fisher-Yates algorithm 
     // While reading online I discovered this algorithm is best for shuffling an array
     shuffle(deck) {
@@ -70,9 +105,64 @@ class Table extends Component {
                     } else {
                         this.hit("dealer");
                     }
+                    // setTimeout(function(){console.log("dealing...")}, 2500);
                 }
+                
+                // dealer peak 
+                // if no dealer blackjack
+                
+                this.setState({playerTurn: true, dealerMessage: ""});
             });
         }
+    }
+
+    updatepTotal() {
+        this.setState({pTotal: this.countHand("player")});
+    }
+
+    updatedTotal() {
+
+    }
+
+    countHand(hand) {
+        if (hand === "player") {
+            // check for ace/soft-hand
+            // 
+            let count = 0;
+            for (const card of this.state.pHand) {
+                count += card.value;
+            }
+            return this.getPlayerSoftHandCount(this.state.pHand, count);
+        } else {
+
+        }
+    }
+
+    getPlayerSoftHandCount(cards, count) {
+        let check = false;
+        let lowCount = "";
+        let isSoft = false;
+        for (const card of cards) {
+            if (card.value === 1) {
+                check = true;
+            }
+        }
+
+        if (check) {
+            count = count + 10;
+            isSoft = true;
+            if (count > 21) {
+                isSoft = false;
+                count = count - 10;
+            } 
+        }
+
+        if (check && count < 19 && isSoft) {
+            let lowCount = count - 10;
+            count = lowCount + " or " + count;
+        }
+
+        return count;
     }
 
     hit(destination) {
@@ -92,7 +182,29 @@ class Table extends Component {
         console.log(this.state.deck)
     }
 
+    deductBank(bet) {
+        let newBank = this.state.bankRoll - bet;
+        this.setState({bankRoll: newBank});
+    }
+
+    getCurrentScores() {
+        let score = [];
+        if (this.state.inHand) {
+            if (this.state.dHand.length == 2) {
+                score.push(<p key="showCard" className="score">The dealer is showing {this.state.dHand[1].value}</p>);   
+                score.push(<p key="playerCount" className="score">Player: {this.state.pTotal}</p>);
+            } else {
+                score.push(<p key="dealerCount" className="score">Dealer: {this.state.dTotal}</p>);
+                score.push(<p key="playerCount" className="score">Player: {this.state.pTotal}</p>);
+            }
+        }
+        
+        return score;
+    }
+
     render() {
+        const scores = this.getCurrentScores();
+
         return(
             <div className="appBackground">
                 <div className="table">
@@ -103,6 +215,7 @@ class Table extends Component {
                         <div className="dialogue">
                             <h1 style={{textAlign: 'center'}}>Dealer Dialogue:</h1>
                             <p>{this.state.dealerMessage}</p>
+                            { scores }
                         </div>
                     </div>
                     <div className="gamePrint">
@@ -113,25 +226,33 @@ class Table extends Component {
                     <div>
                         <PlayerHand 
                             pHand={this.state.pHand} 
+                            updatepTotal={this.updatepTotal}
                         />
                     </div>
                 </div>
-                <div className="bank">
-                    <div style={{float: 'left'}}> 
-                        <h1 style={{textAlign: 'left', marginLeft: '10px'}}>Bank</h1>
-                        <h2 style={{textAlign: 'left', marginLeft: '10px'}}>${this.state.bankRoll.toFixed(2)}</h2>
+                <div className="playerControls">
+                    <div className="bank">
+                        <div style={{float: 'left'}}> 
+                            <h1 style={{textAlign: 'left', marginLeft: '10px'}}>Bank</h1>
+                            <h2 style={{textAlign: 'left', marginLeft: '10px'}}>${this.state.bankRoll.toFixed(2)}</h2>
+                        </div>
+                        <div style={{float: 'right'}}> 
+                            <h1 style={{textAlign: 'left', marginRight: '10px'}}>Bet</h1>
+                            <h2 style={{textAlign: 'left', marginRight: '10px'}}>${this.state.bet.toFixed(2)}</h2>
+                        </div>
                     </div>
-                    <div style={{float: 'right'}}> 
-                        <h1 style={{textAlign: 'left', marginRight: '10px'}}>Bet</h1>
-                        <h2 style={{textAlign: 'left', marginRight: '10px'}}>${this.state.bet.toFixed(2)}</h2>
-                    </div>
+                    <PlayerCommands 
+                        beginHand={this.beginHand}
+                        inHand={this.state.inHand}
+                        playerTurn={this.state.playerTurn}
+                        pHand={this.state.pHand}
+                        deductBank={this.deductBank}
+                        hit={this.playerHit}
+                        stand={this.playerStand}
+                        double={this.double}
+                        split={this.split}
+                    />
                 </div>
-                <PlayerCommands 
-                    beginHand={this.beginHand}
-                    inHand={this.state.inHand}
-                    playerTurn={this.state.playerTurn}
-                    pHand={this.state.pHand}
-                />
             </div>
         )
     }
