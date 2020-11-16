@@ -48,7 +48,7 @@ class StartScreen extends Component {
             <div className="appBackground">
                 <div className="start">
                     <p style={mStyle}>{message}</p>
-                    <label>Select a number of decks: </label>
+                    <label>Select number of decks: </label>
                     <select onChange={this.handleChange} name="decks" value={this.state.decks}>
                         {this.generateDeckOptions()}
                     </select>

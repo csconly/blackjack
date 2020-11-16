@@ -3,6 +3,8 @@ import { version } from "react";
 export const deck = buildCardDeck();
 //export const path = '../../public/images/JPEG/'
 
+export const testDeck = getTestDeck();
+
 function buildCardDeck() {
     let suits = ['C', 'D', 'H', 'S'];
     let value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
@@ -38,5 +40,115 @@ function buildCardDeck() {
             }
         }
     }
+    return deck;
+}
+
+function getTestDeck() {
+    let deck = [];
+
+    // deck.push(
+    //     {
+    //         value: 1,
+    //         valueA: 11,
+    //         image: 'A' + 'C' + ".jpg"
+    //     }
+    // );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'C' + ".jpg"
+        }
+    );
+
+    // deck.push(
+    //     {
+    //         value: 10,
+    //         valueA: "",
+    //         image: 'J' + 'C' + ".jpg"
+    //     }
+    // );
+
+    deck.push(
+        {
+            value: 1,
+            valueA: 11,
+            image: 'A' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 1,
+            valueA: 11,
+            image: 'A' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'S' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'K' + 'S' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 1,
+            valueA: 11,
+            image: 'A' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'S' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'S' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 1,
+            valueA: 11,
+            image: 'A' + 'C' + ".jpg"
+        }
+    );
+
     return deck;
 }

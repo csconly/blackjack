@@ -8,15 +8,22 @@ class PlayerCommands extends Component {
             bet: 0,
             hideBet: this.props.inHand,
             playerTurn: false,
-            pHand: []
+            pHand: [],
+            handOver: false,
+            insurance: false,
+            playerBJ: false
         }
 
         this.beginHand = this.beginHand.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.hit = this.hit.bind(this);
+        this.stand = this.stand.bind(this);
+        this.newHand = this.newHand.bind(this);
+        this.iDecision = this.iDecision.bind(this);
     }
 
     componentDidUpdate(prevProps) {
+        console.log(this.props);
         if (prevProps.inHand !== this.props.inHand) {
             this.setState({hideBet: this.props.inHand});
         }
@@ -28,6 +35,19 @@ class PlayerCommands extends Component {
         if (prevProps.pHand.length !== this.props.pHand.length) {
             this.setState({pHand: this.props.pHand});
         }
+
+        if (prevProps.endGameControl !== this.props.endGameControl) {
+            this.setState({handOver: this.props.endGameControl});
+        }
+
+        if(prevProps.insurance !== this.props.insurance) {
+            if (prevProps.playerBJ !== this.props.playerBJ) {
+                this.setState({playerBJ: this.props.playerBJ, insurance: this.props.insurance});
+            } else {
+                this.setState({insurance: this.props.insurance})
+            }
+        }
+
     }
 
     beginHand() {
@@ -39,8 +59,21 @@ class PlayerCommands extends Component {
         }
     }
 
+    newHand() {
+        this.setState({
+            handOver: false
+        }, function(){
+            this.props.newHand();
+        });
+        
+    }
+
     hit() {
         this.props.hit();
+    }
+
+    stand() {
+        this.props.stand();
     }
 
     // for changing bet
@@ -52,15 +85,16 @@ class PlayerCommands extends Component {
         }); 
     }
 
+
+
     playerButtons() {
         let buttons = [];
-        console.log(this.state);
-        if (this.state.playerTurn) {
+        if (this.state.playerTurn && !this.state.insurance) {
             buttons.push(
                 <button key="hitB" onClick={this.hit}>Hit</button>
             );
             buttons.push(
-                <button key="standB">Stand</button>
+                <button key="standB" onClick={this.stand}>Stand</button>
             );
             if (this.state.pHand.length === 2) {
                 buttons.push(
@@ -72,9 +106,36 @@ class PlayerCommands extends Component {
                     );
                 }
             }
+        } else {
+            if (this.state.insurance) {
+                if (this.state.playerBJ) {
+                    buttons.push(
+                        <button key="insureB" name="even" onClick={this.iDecision}>Even Money</button>
+                        
+                    );
+        
+                    buttons.push(
+                        <button key="noI" name="no" onClick={this.iDecision}>No</button>
+                    );
+                } else {
+                    buttons.push(
+                        <button key="insureB" name="insure" onClick={this.iDecision}>Insurance</button>
+                        
+                    );
+        
+                    buttons.push(
+                        <button key="noI" name="no" onClick={this.iDecision}>No</button>
+                    );
+                }
+            }
         }
 
         return buttons;
+    }
+
+    iDecision(e) {
+        e.preventDefault();
+        this.props.decision(e.target.name);
     }
 
     render() {
@@ -86,18 +147,26 @@ class PlayerCommands extends Component {
         
         let pButtons = this.playerButtons();
 
-        return(
-            <div className="commands">
-                <div className="gameOpButtons">
-                    { pButtons }
+        if (this.state.handOver) {
+            return(
+                <div className="commands">
+                    <button onClick={this.newHand}>Next Hand</button>
                 </div>
-                <div style={bStyles} className="betting">
-                    <label style={{color: 'whitesmoke', fontSize: '24px'}} htmlFor="bet">Bet</label>
-                    <input name="bet" type="number" value={this.state.bet} onChange={this.handleChange}></input>
-                    <button onClick={this.beginHand}>Deal</button>
+            )
+        } else {
+            return(
+                <div className="commands">
+                    <div className="gameOpButtons">
+                        { pButtons }
+                    </div>
+                    <div style={bStyles} className="betting">
+                        <label style={{color: 'whitesmoke', fontSize: '24px'}} htmlFor="bet">Bet</label>
+                        <input name="bet" type="number" value={this.state.bet} onChange={this.handleChange}></input>
+                        <button onClick={this.beginHand}>Deal</button>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 
