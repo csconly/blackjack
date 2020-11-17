@@ -12,11 +12,9 @@ class Table extends Component {
         this.state = {
             bankRoll: parseInt(this.props.bankRoll),
             deckCount: parseInt(this.props.decks),
-            //deck: this.buildGameDeck(parseInt(this.props.decks)),
             bet: 0,
             sBet: 0,
             insureBet: 0,
-            //split: false,
             inHand: false,
             dealerMessage: "Place your bet!",
             dHand: [],
@@ -39,9 +37,8 @@ class Table extends Component {
             iPlayerBJ: false     //this is used for even money when the dealer has an ace showing
         }
         this.deck = this.buildGameDeck(parseInt(this.props.decks));
-        this.deck = Constants.testDeck;
+        //this.deck = Constants.testDeck;
         this.contDealing = true;
-
         this.beginHand = this.beginHand.bind(this);
         this.deductBank = this.deductBank.bind(this);
         this.playerHit = this.playerHit.bind(this);
@@ -65,11 +62,9 @@ class Table extends Component {
     playerHit(split = 0) {
         switch (split) {
             case 0:
-                console.log("why??");
                 this.hit("player");
                 break;
             case 1:
-                console.log("should be hitting this one");
                 this.hit("player1");
                 break;
             case 2: 
@@ -101,7 +96,9 @@ class Table extends Component {
         this.setState({bet: this.state.bet * 2});
         this.deductBank(this.state.bet);
         this.playerHit();
-        this.playerStand();
+        if (!this.countHand("player") > 21) {
+            this.playerStand();
+        }
     }
 
     split() {
@@ -119,7 +116,7 @@ class Table extends Component {
                 onH1: true,
                 sBet: sBet
             }));
-            console.log("about to hit");
+            
             this.hit("player1");
         });
     }
@@ -178,8 +175,8 @@ class Table extends Component {
 
     declareWinner(dTotal) {
         if (this.state.split) {
-            let p1 = this.state.pHand1;
-            let p2 = this.state.pHand2;
+            let p1 = this.countHand("player1");
+            let p2 = this.countHand("player2");
             if (typeof(p1) === "string") {
                 p1 = parseInt(p1[0]) + 10
             }
@@ -188,24 +185,19 @@ class Table extends Component {
             }
             this.endHand("split", dTotal, p1, p2);
         } else {
-            console.log("declare else");
+            
             let playerHand = this.countHand("player");
             if (typeof(playerHand) === "string") {
                 playerHand = parseInt(playerHand[0]) + 10
             }
-            console.log(dTotal);
-            console.log(playerHand);
+            
             if (dTotal > 21) {
-                console.log("1d");
                 this.endHand("dBusted");
             } else if (dTotal > playerHand) {
-                console.log("2d");
                 this.endHand("dWin")
             } else if (playerHand > dTotal) {
-                console.log("3d");
                 this.endHand("pWin");
             } else if (playerHand === dTotal) {
-                console.log("4d");
                 this.endHand("push");
             }
         }
@@ -288,7 +280,6 @@ class Table extends Component {
     }
 
     updateSPTotal() {
-        console.log("SP SP this is calling")
         let total1 = this.countHand("player1");
         let total2 = this.countHand("player2");
         if (total1 > 21) {
@@ -296,7 +287,6 @@ class Table extends Component {
         }
 
         if (total2 > 21) {
-            console.log("secondHand busted");
             this.endHand("p2Bust");
         }
 
@@ -323,7 +313,6 @@ class Table extends Component {
                 this.hitDealerHand();
             } else if (this.state.dealerAction) {
                 // decide winner
-                console.log("about to declare");
                 this.declareWinner(total);
             }
         });
@@ -337,7 +326,6 @@ class Table extends Component {
             }
             return this.getPlayerSoftHandCount(this.state.pHand, count);
         } else if (hand === "player1") {
-            console.log("this should be calling");
             let count = 0;
             for (const card of this.state.pHand1) {
                 count += card.value;
@@ -410,8 +398,7 @@ class Table extends Component {
             let lowCount = count - 10;
             count = lowCount + " or " + count;
         }
-        console.log("hand count");
-        console.log(count);
+        
         return count;
     }
 
@@ -482,12 +469,14 @@ class Table extends Component {
                     this.setEndHand(this.state.bankRoll + total, "Dealer busted! You win! Collected $" + total.toFixed(2));
                 } else {
                     let message = ""
+                    
                     if (p1 > dTotal) {
                         total = this.state.bet * 2;
                         message += "Win hand 1 Collected $" + total.toFixed(2); 
                     } else {
                         message += "You lose hand 1";
                     }
+
                     if (p2 > dTotal) {
                         total += this.state.sBet * 2;
                         let sTotal = this.state.sBet * 2;
@@ -682,7 +671,7 @@ class Table extends Component {
     render() {
         const scores = this.getCurrentScores();
         const secondaryBet = this.getSecondaryBet();
-        console.log(this.deck);
+        //console.log(this.deck);
         return(
             <div className="appBackground">
                 <div className="table">

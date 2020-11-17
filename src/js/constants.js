@@ -54,13 +54,18 @@ function getTestDeck() {
     //     }
     // );
 
-    deck.push(
-        {
-            value: 2,
-            valueA: "",
-            image: '2' + 'C' + ".jpg"
-        }
-    );
+    // deck.push(
+    //     {
+    //         value: 2,
+    //         valueA: "",
+    //         image: '2' + 'C' + ".jpg"
+    //     }
+    // );
+    
+
+    
+
+
     
 
     deck.push(
@@ -71,12 +76,19 @@ function getTestDeck() {
         }
     );
 
-
     deck.push(
         {
             value: 2,
             valueA: "",
             image: '2' + 'C' + ".jpg"
+        }
+    );
+
+    deck.push(
+        {
+            value: 10,
+            valueA: "",
+            image: 'J' + 'C' + ".jpg"
         }
     );
 
@@ -88,21 +100,15 @@ function getTestDeck() {
         }
     );
 
-    deck.push(
-        {
-            value: 6,
-            valueA: "",
-            image: '6' + 'C' + ".jpg"
-        }
-    );
+    // deck.push(
+    //     {
+    //         value: 6,
+    //         valueA: "",
+    //         image: '6' + 'C' + ".jpg"
+    //     }
+    // );
 
-    deck.push(
-        {
-            value: 10,
-            valueA: "",
-            image: 'J' + 'C' + ".jpg"
-        }
-    );
+    
 
     
 
@@ -116,9 +122,9 @@ function getTestDeck() {
 
     deck.push(
         {
-            value: 10,
+            value: 5,
             valueA: "",
-            image: 'J' + 'S' + ".jpg"
+            image: '5' + 'S' + ".jpg"
         }
     );
 
@@ -135,7 +141,7 @@ function getTestDeck() {
         {
             value: 10,
             valueA: "",
-            image: 'K' + 'S' + ".jpg"
+            image: 'Q' + 'S' + ".jpg"
         }
     );
 

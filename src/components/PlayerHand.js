@@ -26,7 +26,7 @@ class PlayerHand extends Component {
                 this.setState({split: this.props.split, pHand: [], pHand1: this.props.pHand1, pHand2: this.props.pHand2});
                 this.props.updateSPTotal();
             } else {
-                console.log("count the CARDS!!!");
+                
                 this.setState({pHand1: this.props.pHand1, pHand2: this.props.pHand2});
                 this.props.updateSPTotal();
             }   
@@ -52,11 +52,9 @@ class PlayerHand extends Component {
     buildFirst() {
         let cards = [];
         const images = require.context('../../public/images/JPEG', true);
-        console.log("should be building hand");
-        console.log(this.state.pHand1.length);
+        
         for(let i = 0; i < this.state.pHand1.length; i++) {
             let keyName = "card"+i;
-            console.log("build cards!");
             let photoPath = images(`./${this.state.pHand1[i].image}`);
             cards.push(
                 <img key={keyName} className="cards" src={photoPath}></img>
