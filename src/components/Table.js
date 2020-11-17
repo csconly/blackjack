@@ -485,6 +485,9 @@ class Table extends Component {
                     if (p1 > dTotal) {
                         total = this.state.bet * 2;
                         message += "Win hand 1 Collected $" + total.toFixed(2); 
+                    } else if (p1 == dTotal) {
+                        total = this.state.bet;
+                        message += "Push hand 1 Collected $" + total.toFixed(2); 
                     } else {
                         message += "You lose hand 1";
                     }
@@ -493,6 +496,10 @@ class Table extends Component {
                         total += this.state.sBet * 2;
                         let sTotal = this.state.sBet * 2;
                         message += " Win hand 2 Collected $" + sTotal.toFixed(2); 
+                    } else if (p2 == dTotal) {
+                        total += this.state.sbet;
+                        let sTotal = this.state.sBet;
+                        message += " Push hand 2 Collected $" + sTotal.toFixed(2); 
                     } else {
                         message += " You lose hand 2";
                     }

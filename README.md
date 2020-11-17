@@ -4,11 +4,10 @@ Features added:
     Betting. 
     Insurance.
     Double Down. 
-    Splitting. But only once
+    Splitting. But only once.
 Future Features: 
     Aces split only get one hit.
     You may double after split.
-    Slow down hit cards.
 
 
 

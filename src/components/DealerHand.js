@@ -24,7 +24,7 @@ class DealerHand extends Component {
                 } 
             });
             if (this.props.dealerTurn) {
-                this.props.updateDealTotal();
+                setTimeout(this.props.updateDealTotal, 500);
             }
             
         }
