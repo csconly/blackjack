@@ -68,13 +68,7 @@ function getTestDeck() {
 
     
 
-    deck.push(
-        {
-            value: 10,
-            valueA: "",
-            image: 'J' + 'C' + ".jpg"
-        }
-    );
+    
 
     deck.push(
         {
@@ -94,19 +88,27 @@ function getTestDeck() {
 
     deck.push(
         {
-            value: 1,
-            valueA: 11,
-            image: 'A' + 'C' + ".jpg"
+            value: 2,
+            valueA: "",
+            image: '2' + 'S' + ".jpg"
         }
     );
 
     // deck.push(
     //     {
-    //         value: 6,
-    //         valueA: "",
-    //         image: '6' + 'C' + ".jpg"
+    //         value: 1,
+    //         valueA: 11,
+    //         image: 'A' + 'C' + ".jpg"
     //     }
     // );
+
+    deck.push(
+        {
+            value: 6,
+            valueA: "",
+            image: '6' + 'C' + ".jpg"
+        }
+    );
 
     
 
@@ -120,13 +122,13 @@ function getTestDeck() {
     //     }
     // );
 
-    deck.push(
-        {
-            value: 5,
-            valueA: "",
-            image: '5' + 'S' + ".jpg"
-        }
-    );
+    // deck.push(
+    //     {
+    //         value: 5,
+    //         valueA: "",
+    //         image: '5' + 'S' + ".jpg"
+    //     }
+    // );
 
 
     // deck.push(

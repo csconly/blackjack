@@ -95,10 +95,7 @@ class Table extends Component {
     double() {
         this.setState({bet: this.state.bet * 2});
         this.deductBank(this.state.bet);
-        this.playerHit();
-        if (!this.countHand("player") > 21) {
-            this.playerStand();
-        }
+        this.hit("double");
     }
 
     split() {
@@ -418,6 +415,13 @@ class Table extends Component {
             this.setState(prevState => ({
                 pHand2: [...prevState.pHand2, hitCard]
             }));
+        } else if (destination === "double") {
+            this.setState(prevState => ({
+                pHand: [...prevState.pHand, hitCard]
+            }), function(){
+                    this.toStay();
+                    
+            });
         } else {
             this.setState(prevState => ({
                 dHand: [...prevState.dHand, hitCard]
@@ -425,6 +429,14 @@ class Table extends Component {
         }
     }
 
+    toStay() {
+        if (this.countHand("player") > 21) {
+            
+        } else {
+            this.playerStand();
+        }
+    }
+ 
     hitDealerHand() {
         this.hit("dealer");
     }
