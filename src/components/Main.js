@@ -9,7 +9,8 @@ class Main extends Component {
         this.state = {
             bankRoll: 0,
             decks: 1,
-            letsPlay: false
+            letsPlay: false,
+            message: ""
         }
         this.gameSetup = this.gameSetup.bind(this);
         this.endGame = this.endGame.bind(this);
@@ -20,17 +21,17 @@ class Main extends Component {
     }
 
     endGame() {
-        this.setState({letsPlay: false})
+        this.setState({letsPlay: false, message: "Game Over. Play again?"})
     }
 
     render() {
         if (!this.state.letsPlay) {
             return(
-                <StartScreen setup={this.gameSetup} />
+                <StartScreen setup={this.gameSetup} message={this.state.message} />
             )
         } else {
             return(
-                <Table bankRoll={this.state.bankRoll} decks={this.state.decks} />
+                <Table bankRoll={this.state.bankRoll} decks={this.state.decks} gameOver={this.endGame} />
             )
         }
     }

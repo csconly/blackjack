@@ -159,6 +159,26 @@ input[type=number] {
     text-align: left;
 }
 
+.split {
+    width: 1400px;
+    height: 200px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.splitH {
+    width: 650px;
+    height: 200px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+
+
 .cards {
     width: 120px;
     height: 184px;

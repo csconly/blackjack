@@ -11,19 +11,22 @@ class PlayerCommands extends Component {
             pHand: [],
             handOver: false,
             insurance: false,
-            playerBJ: false
+            playerBJ: false,
+            onH1: false,
+            onH2: false
         }
 
         this.beginHand = this.beginHand.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.hit = this.hit.bind(this);
         this.stand = this.stand.bind(this);
+        this.double = this.double.bind(this);
+        this.split = this.split.bind(this);
         this.newHand = this.newHand.bind(this);
         this.iDecision = this.iDecision.bind(this);
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.props);
         if (prevProps.inHand !== this.props.inHand) {
             this.setState({hideBet: this.props.inHand});
         }
@@ -48,6 +51,14 @@ class PlayerCommands extends Component {
             }
         }
 
+        if (prevProps.onH1 !== this.props.onH1) {
+            this.setState({onH1: this.props.onH1});
+        }
+
+        if (prevProps.onH2 !== this.props.onH2) {
+            this.setState({onH2: this.props.onH2});
+        }
+
     }
 
     beginHand() {
@@ -69,11 +80,25 @@ class PlayerCommands extends Component {
     }
 
     hit() {
-        this.props.hit();
+        if (this.state.onH1) {
+            this.props.hit(1);
+        } else if (this.state.onH2) {
+            this.props.hit(2);
+        } else {
+            this.props.hit();
+        } 
     }
 
     stand() {
         this.props.stand();
+    }
+
+    double() {
+        this.props.double();
+    }
+
+    split() {
+        this.props.split();
     }
 
     // for changing bet
@@ -96,13 +121,13 @@ class PlayerCommands extends Component {
             buttons.push(
                 <button key="standB" onClick={this.stand}>Stand</button>
             );
-            if (this.state.pHand.length === 2) {
+            if (this.state.pHand.length === 2 && parseInt(this.state.bet) <= this.props.bank && !this.state.onH1 && !this.state.onH2) {       //no double after split due to time constraints
                 buttons.push(
-                    <button key="doubleB">Double Down</button>
+                    <button key="doubleB" onClick={this.double}>Double Down</button>
                 );
-                if (this.state.pHand[0].value === this.state.pHand[1].value) {
+                if (this.state.pHand[0].value === this.state.pHand[1].value && this.props.bank >= this.state.bet) {
                     buttons.push(
-                        <button key="splitB">Split</button>
+                        <button key="splitB" onClick={this.split}>Split</button>
                     );
                 }
             }
@@ -118,15 +143,21 @@ class PlayerCommands extends Component {
                         <button key="noI" name="no" onClick={this.iDecision}>No</button>
                     );
                 } else {
-                    buttons.push(
-                        <button key="insureB" name="insure" onClick={this.iDecision}>Insurance</button>
-                        
-                    );
-        
-                    buttons.push(
-                        <button key="noI" name="no" onClick={this.iDecision}>No</button>
-                    );
-                }
+                    if (this.state.bet * .5 >= this.props.bank) {
+                        buttons.push(
+                            <button key="noI" name="no" onClick={this.iDecision}>Continue without Insurance</button>
+                        );
+                    } else {
+                        buttons.push(
+                            <button key="insureB" name="insure" onClick={this.iDecision}>Insurance</button>
+                            
+                        );
+            
+                        buttons.push(
+                            <button key="noI" name="no" onClick={this.iDecision}>No</button>
+                        );
+                    }
+                }      
             }
         }
 

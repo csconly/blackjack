@@ -11,13 +11,13 @@ class DealerHand extends Component {
             dealerTurn: false,
             inHand: this.props.inHand
         }
-        //this.checkForBlackJack = this.checkForBlackJack.bind(this);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.dHand.length !== this.props.dHand.length) {
             this.setState({
-                dHand: this.props.dHand
+                dHand: this.props.dHand,
+                dBJ: false
             }, function() {
                 if (this.props.dHand.length === 2) {
                     this.checkForBlackJack();
@@ -30,22 +30,21 @@ class DealerHand extends Component {
         }
         
         if (prevProps.dealerTurn !== this.props.dealerTurn) {
+            if (!this.props.dealerTurn) {
+                this.setState({dBJ: false});
+            }
             this.setState({dealerTurn: this.props.dealerTurn});
         } 
         if (prevProps.inHand !== this.props.inHand) {
-            this.setState({inHand: this.props.inHand});
-            
+            this.setState({inHand: this.props.inHand});  
         }
     }
 
     checkForBlackJack() {
-        //let checkPlayer = false;
         if (this.state.dHand[0].value === 1) {
-            console.log("Insurance");
             this.props.askInsurance();
         } else if (this.state.dHand[0].value === 10) {          // peak if ten
             if (this.state.dHand[1].valueA) {                   // if not falsey
-                //console.log(this.state);
                 if(this.state.dHand[0].value + this.state.dHand[1].valueA === 21) {     // if backdoor blackjack
                     this.setState({dBJ: true})
                     this.props.dealerBJ(this.state.dHand, true);

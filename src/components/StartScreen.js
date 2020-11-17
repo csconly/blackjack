@@ -39,6 +39,9 @@ class StartScreen extends Component {
     render() {
         let mStyle = {color: 'black', fontSize: '64px'};
         let message = 'Blackjack';
+        if (this.props.message) {
+            message = this.props.message;
+        };
         if (!this.state.buyin || (this.state.buyin <= 0)) {
             mStyle = {color: 'red', fontSize: '64px'};
             message = 'You must select a buy in';

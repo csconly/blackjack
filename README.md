@@ -1,3 +1,21 @@
+Features added:
+    Blackjack basic game.
+    Multi-Deck functionality.
+    Betting. 
+    Insurance.
+    Double Down. 
+    Splitting. But only once
+Future Features: 
+    Aces split only get one hit.
+    You may double after split.
+    Slow down hit cards.
+
+
+
+
+Below are the commands that can be ran to begin the project assuming everything is installed.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
