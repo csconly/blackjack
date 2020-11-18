@@ -667,7 +667,7 @@ class Table extends Component {
         this.contDealing = true;
         this.setState({
             triggerEndDialogue: false, 
-            dealerMessage: "Place you Bet!",
+            dealerMessage: "Place your Bet!",
             dHand: [],
             pHand: [],
             pTotal: 0,
